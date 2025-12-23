@@ -210,6 +210,12 @@
             .ecosystem p {
                 font-size: 0.875rem;
             }
+
+            /* Force single column on very small screens */
+            .ecosystem div[style*="display: grid"] {
+                grid-template-columns: 1fr !important;
+                gap: 0.5rem !important;
+            }
         }
     </style>
 </head>
@@ -239,7 +245,7 @@
             <h3 style="text-align: center; margin-bottom: 0.5rem; font-size: 1.25rem; font-weight: 600;">UCLI Tools Ecosystem</h3>
             <p style="text-align: center; color: #ffffff; margin-bottom: 2rem; font-size: 0.875rem;">Professional CLI tools for developers</p>
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0.75rem; max-width: 700px; margin: 0 auto;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 0.75rem; max-width: 700px; margin: 0 auto;">
                 <a href="https://ucli.tools" style="padding: 1rem; background: rgba(17, 24, 39, 0.5); border: 1px solid rgba(55, 65, 81, 1); border-radius: 0.5rem; text-decoration: none; color: inherit; transition: all 0.3s;" onmouseover="this.style.borderColor='rgba(251, 191, 36, 0.5)'" onmouseout="this.style.borderColor='rgba(55, 65, 81, 1)'">
                     <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.25rem;">
                         <svg style="width: 1rem; height: 1rem; color: #fbbf24;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
