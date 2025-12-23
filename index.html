@@ -125,21 +125,86 @@
             opacity: 0.7;
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
             .container {
                 padding: 2rem 1.5rem;
+                margin: 1rem;
             }
 
             h1 {
                 font-size: 2rem;
+                margin-bottom: 0.5rem;
             }
 
             .logo {
-                font-size: 3rem;
+                font-size: 2.5rem;
+                margin-bottom: 1rem;
+            }
+
+            p {
+                font-size: 1rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .install-box {
+                padding: 1rem;
+                margin: 1.5rem 0;
             }
 
             code {
                 font-size: 0.9rem;
+                padding: 0.75rem;
+            }
+
+            .copy-btn {
+                width: 100%;
+                min-height: 48px;
+                font-size: 1rem;
+                padding: 0.75rem 1rem;
+                margin-top: 0.75rem;
+            }
+
+            .links {
+                gap: 0.75rem;
+                flex-direction: column;
+            }
+
+            a {
+                width: 100%;
+                text-align: center;
+                padding: 0.75rem 1rem;
+                min-height: 48px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1.5rem 1rem;
+                margin: 0.5rem;
+            }
+
+            h1 {
+                font-size: 1.75rem;
+            }
+
+            .logo {
+                font-size: 2rem;
+            }
+
+            .ecosystem {
+                margin-top: 3rem;
+                padding-top: 2rem;
+            }
+
+            .ecosystem h3 {
+                font-size: 1.125rem;
+            }
+
+            .ecosystem p {
+                font-size: 0.875rem;
             }
         }
     </style>
@@ -170,7 +235,7 @@
             <h3 style="text-align: center; margin-bottom: 0.5rem; font-size: 1.25rem; font-weight: 600;">UCLI Tools Ecosystem</h3>
             <p style="text-align: center; color: #fed7aa; margin-bottom: 2rem; font-size: 0.875rem;">Professional CLI tools for developers</p>
 
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; max-width: 900px; margin: 0 auto;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; max-width: 900px; margin: 0 auto;">
                 <a href="https://ucli.tools" style="padding: 1rem 1.25rem; background: rgba(17, 24, 39, 0.5); border: 1px solid rgba(251, 191, 36, 0.5); border-radius: 0.5rem; text-decoration: none; color: inherit; transition: all 0.3s; min-height: 4.5rem; display: flex; flex-direction: column; justify-content: center; overflow: hidden;" onmouseover="this.style.borderColor='#fbbf24'" onmouseout="this.style.borderColor='rgba(251, 191, 36, 0.5)'">
                     <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.25rem; overflow: hidden;">
                         <svg style="width: 1rem; height: 1rem; color: #fbbf24;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
