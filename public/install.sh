@@ -69,7 +69,7 @@ make
 
 printf "\n"
 printf "${GREEN}╔════════════════════════════════════════╗${NC}\n"
-printf "${GREEN}║      ✓ Installation Complete!         ║${NC}\n"
+printf "${GREEN}║      ✓ Installation Complete!          ║${NC}\n"
 printf "${GREEN}╔════════════════════════════════════════╗${NC}\n"
 printf "\n"
 printf "Run: ${BLUE}ucli --version${NC} to verify installation\n"
