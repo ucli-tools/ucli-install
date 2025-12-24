@@ -17,7 +17,7 @@ INSTALL_DIR="${HOME}/.ucli"
 REPO_DIR="${INSTALL_DIR}/ucli"
 
 printf "${BLUE}╔════════════════════════════════════════╗${NC}\n"
-printf "${BLUE}║      UCLI Tools Installer v1.0.0      ║${NC}\n"
+printf "${BLUE}║      UCLI Tools Installer v1.0.0       ║${NC}\n"
 printf "${BLUE}╔════════════════════════════════════════╗${NC}\n"
 printf "\n"
 
