@@ -1,0 +1,4 @@
+Home	ucli.tools	https://ucli.tools/
+Install	install.ucli.tools	https://install.ucli.tools/
+Registry	registry.ucli.tools	https://registry.ucli.tools/
+Docs	docs.ucli.tools	https://docs.ucli.tools/

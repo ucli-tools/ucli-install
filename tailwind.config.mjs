@@ -5,25 +5,27 @@ export default {
   // `@tailwind base` in src/styles/tw.css.
   corePlugins: { preflight: false },
   theme: {
-    screens: { sm: '480px', md: '768px', lg: '1024px', xl: '1280px' },
+    // Min-width breakpoints that line up with the kit's max-width ones (720, 760, 900, 1100).
+    screens: { sm: '721px', md: '761px', lg: '901px', xl: '1101px' },
     extend: {
       colors: {
         paper: 'var(--u-paper)',
         paper2: 'var(--u-paper-2)',
         rule: 'var(--u-rule)',
+        ruleStrong: 'var(--u-rule-strong)',
         ink: 'var(--u-ink)',
         ink2: 'var(--u-ink-2)',
-        ink3: 'var(--u-ink-3)',
-        accent: 'var(--u-accent)',
         ok: 'var(--u-ok)',
-        warn: 'var(--u-warn)',
+        slab: 'var(--u-slab-bg)',
+        slabFg: 'var(--u-slab-fg)',
+        btn: 'var(--u-btn-bg)',
+        btnFg: 'var(--u-btn-fg)',
       },
       fontFamily: {
-        serif: ['"Source Serif 4"', '"Source Serif Fallback"', '"Iowan Old Style"', '"Palatino Linotype"', 'Georgia', 'serif'],
-        sans: ['"IBM Plex Sans"', '"Plex Sans Fallback"', '"Segoe UI"', '"Helvetica Neue"', 'Arial', 'sans-serif'],
-        mono: ['"IBM Plex Mono"', '"Plex Mono Fallback"', 'ui-monospace', '"SFMono-Regular"', 'Menlo', 'Consolas', 'monospace'],
+        sans: ['"Schibsted Grotesk"', '"Schibsted Fallback"', 'system-ui', '"Segoe UI"', '"Helvetica Neue"', 'Arial', 'sans-serif'],
+        mono: ['"JetBrains Mono"', '"JetBrains Fallback"', 'ui-monospace', '"SFMono-Regular"', 'Menlo', 'Consolas', 'monospace'],
       },
-      maxWidth: { prose: '68ch' },
+      maxWidth: { prose: '70ch' },
     },
   },
   plugins: [],

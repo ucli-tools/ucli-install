@@ -1,32 +1,49 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Masthead from '../components/Masthead.astro';
 import Command from '../components/Command.astro';
 import { INSTALL_CMD, INSTALL_URL, GET_STARTED_URL } from '../data/commands';
 ---
 
-<Layout title="Install UCLI Tools" description="Install the UCLI tool manager with one command">
-  <Masthead lead="Professional CLI tools for developers">
-    <Fragment>Install UCLI Tools</Fragment>
-    <Fragment slot="command">
-      <Command label="Install ucli" lines={[INSTALL_CMD]} />
-      <p class="u-quiet"><a class="u-link" href={INSTALL_URL}>Read the script</a></p>
-      <p class="u-quiet">Prefer to read it first? Download it, read it, check it, then run it:</p>
-      <Command label="Download, read, check, run" lines={[
-        'curl -fsSLO https://install.ucli.tools/install.sh',
-        'curl -fsSLO https://install.ucli.tools/install.sh.sha256',
-        'less install.sh',
-        'sha256sum -c install.sh.sha256',
-        { t: '# macOS: shasum -a 256 -c install.sh.sha256', c: true },
-        'bash install.sh',
-      ]} />
-      <p class="u-quiet">The check catches a download cut short; it does not protect against a compromised server. ucli installs to ~/.local/bin with no sudo, at the commit the registry pins.</p>
-    </Fragment>
-    <Fragment slot="actions">
-      <a class="u-link" href="https://ucli.tools">Home</a>
-      <a class="u-link" href="https://docs.ucli.tools">Docs</a>
-      <a class="u-link" href={GET_STARTED_URL}>Quick Start</a>
-      <a class="u-link" href="https://github.com/ucli-tools">GitHub</a>
-    </Fragment>
-  </Masthead>
+<Layout title="Install ucli" description="Install the ucli tool manager with one command">
+  <div class="u-wrap"><div class="u-page u-ipage">
+    <h1>Install ucli</h1>
+    <p class="u-lede">One command builds ucli at its pinned commit and puts it in <code>~/.local/bin</code>. A new install never asks for sudo.</p>
+    <Command bar label="Install" cmd={INSTALL_CMD}>
+      <p class="u-install__note">Linux and macOS; on Windows, use WSL. You need curl, git, make and bash. ucli is a bash script, so install bash first if you lack it. If ucli is already in <code>/usr/local/bin</code>, it is updated there, which may ask for your password; <code>ucli install --move</code> moves it to <code>~/.local/bin</code>.</p>
+    </Command>
+    <p class="u-next"><a href={INSTALL_URL}>Read the script</a><a href={GET_STARTED_URL}>Quick start</a></p>
+
+    <div class="u-ibody">
+      <section class="u-ib">
+        <h2>What the installer does</h2>
+        <ol class="u-ilist">
+          <li>Checks that curl, git, make and bash are installed, and says what to install if not.</li>
+          <li>Reads the commit the registry pins for ucli, and fetches exactly that commit from <a href="https://github.com/ucli-tools/ucli">github.com/ucli-tools/ucli</a>.</li>
+          <li>Builds it and puts <code>ucli</code> in <code>~/.local/bin</code>. A new install never asks for sudo; an existing <code>/usr/local/bin/ucli</code> is updated where it is, which may ask for your password.</li>
+          <li>Tells you if <code>~/.local/bin</code> is missing from your <code>PATH</code>, and how to add it for bash, zsh or fish.</li>
+        </ol>
+      </section>
+
+      <section class="u-ib">
+        <h2>Read it before you run it</h2>
+        <p>Download it, read it, check it, then run it:</p>
+        <Command label="Read the installer first" lines={[
+          'curl -fsSLO https://install.ucli.tools/install.sh',
+          'curl -fsSLO https://install.ucli.tools/install.sh.sha256',
+          'less install.sh',
+          'sha256sum -c install.sh.sha256',
+          { t: '# macOS: shasum -a 256 -c install.sh.sha256', c: true },
+          'bash install.sh',
+        ]} />
+        <p>The check catches a download cut short; it does not protect against a compromised server.</p>
+      </section>
+
+      <section class="u-ib">
+        <h2>Check that it worked</h2>
+        <p>Open a new terminal and ask ucli for its version. Then build your first tool.</p>
+        <Command label="Check the install" lines={['ucli --version', 'ucli build mdtexpdf']} />
+        <p class="u-more">To remove ucli later, run <code>ucli uninstall</code>.</p>
+      </section>
+    </div>
+  </div></div>
 </Layout>
