@@ -1,8 +1,7 @@
-/* ucli-kit theme.js: light/dark toggle for the Astro sites (the docs use Material's own toggle).
-   Sets data-theme on <html> and remembers the choice in localStorage (inside try/catch).
-   The toggle button ([data-theme-toggle], class u-toggle) is rendered `hidden` and revealed here;
-   its label names the mode a click switches to ("Light mode" while dark, "Dark mode" while light). Without JavaScript the page follows
-   prefers-color-scheme alone.
+/* ucli-kit theme.js, version 4. Light/dark button for the Astro sites (the docs use Material's own toggle).
+   Binds every .u-theme button, removes `hidden`, toggles data-theme on <html> and remembers the choice in
+   localStorage (inside try/catch). It never changes the button's content or aria-label: the icon stays and
+   the label stays "Switch colour theme". Without JavaScript the page follows prefers-color-scheme alone.
 
    Put this inline in <head>, before the stylesheets, so a stored choice applies before first paint:
    <script>try{var t=localStorage.getItem('ucli-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script> */
@@ -21,15 +20,11 @@
     if (attr === 'light' || attr === 'dark') return attr;
     return mq && mq.matches ? 'dark' : 'light';
   }
-  function sync(buttons) {
-    var dark = effective() === 'dark';
-    for (var i = 0; i < buttons.length; i++) buttons[i].textContent = dark ? 'Light mode' : 'Dark mode';
-  }
 
   function init() {
     var saved = stored();
     if (saved) root.setAttribute('data-theme', saved);
-    var buttons = document.querySelectorAll('[data-theme-toggle]');
+    var buttons = document.querySelectorAll('.u-theme');
     for (var i = 0; i < buttons.length; i++) {
       (function (btn) {
         btn.hidden = false;
@@ -37,13 +32,10 @@
         btn.addEventListener('click', function () {
           var next = effective() === 'dark' ? 'light' : 'dark';
           root.setAttribute('data-theme', next);
-          try { localStorage.setItem(KEY, next); } catch (e) { /* storage blocked: choice lasts for this page */ }
-          sync(buttons);
+          try { localStorage.setItem(KEY, next); } catch (e) { /* storage blocked: the choice lasts for this page */ }
         });
       })(buttons[i]);
     }
-    sync(buttons);
-    if (mq && mq.addEventListener) mq.addEventListener('change', function () { sync(buttons); });
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

@@ -1,11 +1,11 @@
 {
-  "name": "Install UCLI Tools",
-  "short_name": "UCLI Install",
-  "description": "Install professional CLI tools for developers",
+  "name": "Install ucli",
+  "short_name": "ucli install",
+  "description": "Install the ucli tool manager with one command",
   "start_url": "/",
   "display": "standalone",
-  "theme_color": "#16181C",
-  "background_color": "#F7F8FA",
+  "theme_color": "#101214",
+  "background_color": "#ffffff",
   "icons": [
     {
       "src": "/favicon.svg",

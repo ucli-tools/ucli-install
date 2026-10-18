@@ -1,27 +1,33 @@
 ---
-// The command slab (design 5.3). `lines` is the single source: the visible text and data-copy both
-// come from it. A line is { t, c?: true } or a plain string; comments are shown, never copied.
+// The install bar (bar, 5.2) or a code block with a Copy button (5.3). `cmd` or `lines` is the single
+// source: the visible text and the copied text are the same element. A line is { t, c?: true } or a
+// plain string; comment lines are shown and copied as they are. The "$ " is generated content.
 export interface Line { t: string; c?: boolean }
 interface Props {
   lines?: (Line | string)[];
   cmd?: string;
   label?: string;
-  small?: boolean;
+  bar?: boolean;
+  note?: string;
 }
-const { lines, cmd, label, small = false } = Astro.props;
+const { lines, cmd, label, bar = false } = Astro.props;
 const all: Line[] = (lines ?? (cmd ? [cmd] : [])).map((l) => (typeof l === 'string' ? { t: l } : l));
-const copy = all.filter((l) => !l.c).map((l) => l.t).join('\n');
-// Let long URLs fold after a slash on a phone.
-const parts = (t: string) => t.split(/(?<=\/)/);
+const text = all.map((l) => l.t).join('\n');
+let h = 0;
+for (const ch of text + (label ?? '')) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+const id = 'cmd-' + h.toString(36);
 ---
 
-<figure class:list={['u-cmd', { 'u-cmd--small': small }]} data-copy={copy}>
-  {label && <figcaption class="u-cmd__label">{label}</figcaption>}
-  <pre class="u-cmd__body" tabindex="0"><code>{all.map((l) =>
-    l.c
-      ? <span class="u-cmd__line u-cmd__line--plain u-cmd__mute">{l.t}</span>
-      : <span class="u-cmd__line"><span class="u-cmd__prompt" aria-hidden="true">$ </span>{parts(l.t).map((p) => <Fragment>{p}<wbr /></Fragment>)}</span>
-  )}</code></pre>
-  <button class="u-cmd__copy" type="button" hidden>Copy</button>
-  <span class="u-visually-hidden" aria-live="polite"></span>
-</figure>
+{bar ? (
+  <div class="u-install">
+    {label && <p class="u-install__label">{label}</p>}
+    <div class="u-cmd"><pre class="u-cmd__body" id={id}>{text}</pre>
+      <button type="button" class="u-copy" data-copy={id} aria-label="Copy command" hidden>Copy</button></div>
+    <slot />
+  </div>
+) : (
+  <div class="u-code"><div class="u-code__x" data-scroll-x tabindex="0" role="region" aria-label={label ?? 'Command'}><pre id={id}>{all.map((l, i) => (
+    <Fragment><span class={l.c ? 'u-cm' : 'u-pl'}>{l.t}</span>{i < all.length - 1 ? '\n' : ''}</Fragment>
+  ))}</pre></div>
+    <button type="button" class="u-copy u-copy--s" data-copy={id} aria-label={`Copy ${label ?? 'command'}`} hidden>Copy</button></div>
+)}

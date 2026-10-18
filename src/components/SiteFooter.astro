@@ -1,14 +1,8 @@
 ---
+import { SITES, GITHUB_URL } from '../data/sites';
 ---
 
-<footer class="u-footer">
-  <div class="u-wrap">
-    <ul class="u-sites" aria-label="The ucli sites">
-      <li><a class="u-sites__link" href="https://ucli.tools">ucli</a><span class="u-sites__host">ucli.tools</span></li>
-      <li aria-current="page"><span class="u-sites__here">install</span> <span class="u-sites__host">(this site)</span></li>
-      <li><a class="u-sites__link" href="https://registry.ucli.tools">registry</a><span class="u-sites__host">registry.ucli.tools</span></li>
-      <li><a class="u-sites__link" href="https://docs.ucli.tools">docs</a><span class="u-sites__host">docs.ucli.tools</span></li>
-    </ul>
-    <p class="u-footer__legal">Open source • Apache 2.0 License<br />Professional CLI tools for developers</p>
-  </div>
-</footer>
+<footer class="u-footer"><div class="u-wrap u-footer__in">
+  <nav class="u-footer__nav" aria-label="All ucli sites">{SITES.map((s) => <a href={s.href}>{s.footerLabel}</a>)}<a href={GITHUB_URL}>GitHub</a></nav>
+  <p>ucli is open source under the Apache 2.0 licence.</p>
+</div></footer>

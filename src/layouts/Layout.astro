@@ -1,6 +1,6 @@
 ---
 import '../styles/tw.css';
-import SiteHeader from "../components/SiteHeader.astro";
+import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
   description?: string;
 }
 
-const { title, description = "Install UCLI Tools with one command" } = Astro.props;
+const { title, description = "Install the ucli tool manager with one command" } = Astro.props;
 ---
 
 <!doctype html>
@@ -21,8 +21,8 @@ const { title, description = "Install UCLI Tools with one command" } = Astro.pro
 
     <link rel="icon" type="image/svg+xml" href="/ucli-kit/mark.svg" />
     <link rel="manifest" href="/manifest.json" />
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F7F8FA" />
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#111316" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0e1012" />
 
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
@@ -35,9 +35,8 @@ const { title, description = "Install UCLI Tools with one command" } = Astro.pro
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
 
-    <link rel="preload" as="font" type="font/woff2" crossorigin href="/ucli-kit/fonts/source-serif-4-400.woff2" />
-    <link rel="preload" as="font" type="font/woff2" crossorigin href="/ucli-kit/fonts/source-serif-4-600.woff2" />
-    <link rel="preload" as="font" type="font/woff2" crossorigin href="/ucli-kit/fonts/ibm-plex-mono-400-latin.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="/ucli-kit/fonts/schibsted-grotesk-variable.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="/ucli-kit/fonts/jetbrains-mono-400.woff2" />
     <link rel="stylesheet" href="/ucli-kit/tokens.css" />
     <link rel="stylesheet" href="/ucli-kit/base.css" />
     <link rel="stylesheet" href="/ucli-kit/prose.css" />
@@ -46,10 +45,30 @@ const { title, description = "Install UCLI Tools with one command" } = Astro.pro
   </head>
   <body>
     <a class="u-skip" href="#main">Skip to content</a>
-    <SiteHeader />
+    <SiteHeader site="install" />
     <main id="main">
       <slot />
     </main>
     <SiteFooter />
   </body>
 </html>
+
+<style is:global>
+  /* Page-level pieces this site adds on top of the kit. Kit tokens only. */
+  .u-pl::before { content: "$ "; color: var(--u-ink-2); }
+  .u-cm { color: var(--u-ink-2); }
+  .u-page h1 { font-size: var(--u-fs-h1-page); font-weight: 700; letter-spacing: -.02em; line-height: 1.1; max-width: 22ch; }
+  .u-page p { max-width: 68ch; }
+  .u-page .u-install p { max-width: none; }
+  .u-page .u-lede { max-width: 36em; }
+  .u-page .u-code { margin: 12px 0 20px; max-width: 44rem; }
+  .u-ibody { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 64px; margin-top: 56px; padding-top: 40px; border-top: 1px solid var(--u-rule); }
+  .u-ib:first-child { grid-row: span 2; }
+  .u-ib h2 { font-size: 20px; margin: 0 0 12px; font-weight: 700; }
+  .u-ib + .u-ib { margin-top: 24px; }
+  .u-ib:first-child + .u-ib { margin-top: 0; }
+  .u-ilist { margin: 0; padding: 0; list-style: none; counter-reset: i; }
+  .u-ilist li { counter-increment: i; position: relative; padding: 12px 0 12px 32px; border-top: 1px solid var(--u-rule); }
+  .u-ilist li::before { content: counter(i); position: absolute; left: 0; font-family: var(--u-font-mono); color: var(--u-ink-2); }
+  @media (max-width: 720px) { .u-ib:first-child + .u-ib { margin-top: 36px; } .u-ibody { grid-template-columns: minmax(0, 1fr); } .u-ib:first-child { grid-row: auto; } }
+</style>

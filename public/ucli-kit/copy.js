@@ -1,10 +1,12 @@
-/* ucli-kit copy.js: copy buttons. No dependencies.
-   Binds every .u-cmd (button .u-cmd__copy, text in the figure's data-copy) and every .u-copy
-   (inline button, text in its own data-copy). Removes `hidden` from the buttons, so without
-   JavaScript they are absent rather than dead. The command stays ordinary selectable text. */
+/* ucli-kit copy.js, version 4. Copy buttons. No dependencies.
+   Binds every .u-copy and removes `hidden`, so without JavaScript the buttons are absent rather than dead.
+   `data-copy` is an element id: the script copies that element's textContent (generated "$ " text is not
+   part of it) through the Clipboard API. Fallback: select that element and show "Selected".
+   The label reads "Copied" or "Selected" and returns to "Copy" after 1800ms. The live region keeps the
+   .u-visually-hidden class. The command stays ordinary selectable text. */
 (function () {
   'use strict';
-  var RESET_MS = 1600;
+  var RESET_MS = 1800;
 
   function liveRegion(scope) {
     var live = scope.querySelector('[aria-live]');
@@ -15,19 +17,6 @@
       scope.appendChild(live);
     }
     return live;
-  }
-
-  function sourceText(btn) {
-    var holder = btn.hasAttribute('data-copy') ? btn : btn.closest('[data-copy]');
-    return holder ? holder.getAttribute('data-copy') : '';
-  }
-
-  function sourceNode(btn) {
-    var fig = btn.closest('.u-cmd');
-    if (fig) return fig.querySelector('code');
-    var prev = btn.previousElementSibling;
-    while (prev && prev.tagName !== 'CODE') prev = prev.previousElementSibling;
-    return prev || (btn.parentNode && btn.parentNode.querySelector('code'));
   }
 
   function selectNode(node) {
@@ -41,7 +30,7 @@
 
   function bind(btn) {
     var label = btn.textContent;
-    var scope = btn.closest('.u-cmd') || btn.parentNode;
+    var scope = btn.parentNode;
     var live = liveRegion(scope);
     var timer = null;
 
@@ -53,18 +42,19 @@
     }
 
     btn.addEventListener('click', function () {
-      var text = sourceText(btn);
-      function fail() {
-        selectNode(sourceNode(btn));
-        flash(label, 'Press Ctrl+C');
+      var node = document.getElementById(btn.getAttribute('data-copy'));
+      if (!node) return;
+      var text = node.textContent;
+      function fallback() {
+        selectNode(node);
+        flash('Selected', 'Selected, press Ctrl+C to copy');
       }
-      if (!text) return fail();
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(text).then(function () {
           flash('Copied', 'Copied to clipboard');
-        }, fail);
+        }, fallback);
       } else {
-        fail();
+        fallback();
       }
     });
     btn.hidden = false;
@@ -72,7 +62,7 @@
   }
 
   function init() {
-    var buttons = document.querySelectorAll('.u-cmd__copy, .u-copy');
+    var buttons = document.querySelectorAll('.u-copy');
     for (var i = 0; i < buttons.length; i++) bind(buttons[i]);
   }
 

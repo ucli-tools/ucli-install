@@ -1,14 +1,14 @@
 ---
+import { SITES, GITHUB_URL, type SiteKey } from '../data/sites';
+interface Props { site: SiteKey }
+const { site } = Astro.props;
 ---
 
-<header class="u-header">
-  <div class="u-wrap u-header__inner">
-    <div class="u-header__brand">
-      <a class="u-wordmark" href="https://ucli.tools" aria-label="ucli">ucli</a>
-      <span class="u-header__site">/ install</span>
-    </div>
-    <div class="u-header__tools" style="margin-left:auto">
-      <button class="u-toggle" type="button" data-theme-toggle hidden>Dark mode</button>
-    </div>
-  </div>
-</header>
+<header class="u-header"><div class="u-wrap u-header__inner">
+  <a class="u-header__brand" href="https://ucli.tools/"><span class="u-wordmark">ucli</span>{site !== 'home' && <span class="u-header__site">{site}</span>}</a>
+  <nav class="u-nav" aria-label="ucli sites">
+    {SITES.map((s) => <a href={s.href} aria-current={s.key === site ? 'page' : undefined}>{s.navLabel}</a>)}
+  </nav>
+  <div class="u-header__tools"><a class="u-gh" href={GITHUB_URL}>GitHub</a>
+    <button type="button" class="u-theme" aria-label="Switch colour theme" hidden><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor"/></svg></button></div>
+</div></header>
