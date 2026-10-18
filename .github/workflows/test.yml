@@ -1,0 +1,47 @@
+name: Installer tests
+
+on:
+  push:
+    branches-ignore:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  shellcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install shellcheck 0.10.0
+        run: |
+          curl -fsSL -o sc.tar.xz https://github.com/koalaman/shellcheck/releases/download/v0.10.0/shellcheck-v0.10.0.linux.x86_64.tar.xz
+          tar xf sc.tar.xz
+          echo "$PWD/shellcheck-v0.10.0" >> "$GITHUB_PATH"
+      - name: shellcheck
+        run: |
+          shellcheck --version
+          shellcheck -s sh public/install.sh
+          shellcheck -s bash public/install.sh
+          shellcheck tests/*.sh tests/fixture/ucli.sh
+
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Sandbox tests (sh)
+        run: INSTALL_SHELL=sh tests/run.sh
+      - name: Sandbox tests (bash)
+        run: INSTALL_SHELL=bash tests/run.sh
+      - name: Real install into the runner HOME, pinned commit (sh)
+        run: INSTALL_SHELL=sh tests/real-install.sh
+      - name: Real install, a second time with bash, from a clean HOME
+        run: |
+          rm -rf "$HOME/.local/bin/ucli"
+          INSTALL_SHELL=bash tests/real-install.sh

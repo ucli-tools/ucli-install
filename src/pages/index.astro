@@ -11,6 +11,16 @@ import { INSTALL_CMD, INSTALL_URL, GET_STARTED_URL } from '../data/commands';
     <Fragment slot="command">
       <Command label="Install ucli" lines={[INSTALL_CMD]} />
       <p class="u-quiet"><a class="u-link" href={INSTALL_URL}>Read the script</a></p>
+      <p class="u-quiet">Prefer to read it first? Download it, read it, check it, then run it:</p>
+      <Command label="Download, read, check, run" lines={[
+        'curl -fsSLO https://install.ucli.tools/install.sh',
+        'curl -fsSLO https://install.ucli.tools/install.sh.sha256',
+        'less install.sh',
+        'sha256sum -c install.sh.sha256',
+        { t: '# macOS: shasum -a 256 -c install.sh.sha256', c: true },
+        'bash install.sh',
+      ]} />
+      <p class="u-quiet">The check catches a download cut short; it does not protect against a compromised server. ucli installs to ~/.local/bin with no sudo, at the commit the registry pins.</p>
     </Fragment>
     <Fragment slot="actions">
       <a class="u-link" href="https://ucli.tools">Home</a>
