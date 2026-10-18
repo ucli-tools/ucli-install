@@ -26,6 +26,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Check ucli-kit
+        continue-on-error: true   # a kit check never blocks a deploy
+        run: bash scripts/check-kit.sh
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:

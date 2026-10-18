@@ -1,0 +1,27 @@
+---
+// The command slab (design 5.3). `lines` is the single source: the visible text and data-copy both
+// come from it. A line is { t, c?: true } or a plain string; comments are shown, never copied.
+export interface Line { t: string; c?: boolean }
+interface Props {
+  lines?: (Line | string)[];
+  cmd?: string;
+  label?: string;
+  small?: boolean;
+}
+const { lines, cmd, label, small = false } = Astro.props;
+const all: Line[] = (lines ?? (cmd ? [cmd] : [])).map((l) => (typeof l === 'string' ? { t: l } : l));
+const copy = all.filter((l) => !l.c).map((l) => l.t).join('\n');
+// Let long URLs fold after a slash on a phone.
+const parts = (t: string) => t.split(/(?<=\/)/);
+---
+
+<figure class:list={['u-cmd', { 'u-cmd--small': small }]} data-copy={copy}>
+  {label && <figcaption class="u-cmd__label">{label}</figcaption>}
+  <pre class="u-cmd__body" tabindex="0"><code>{all.map((l) =>
+    l.c
+      ? <span class="u-cmd__line u-cmd__line--plain u-cmd__mute">{l.t}</span>
+      : <span class="u-cmd__line"><span class="u-cmd__prompt" aria-hidden="true">$ </span>{parts(l.t).map((p) => <Fragment>{p}<wbr /></Fragment>)}</span>
+  )}</code></pre>
+  <button class="u-cmd__copy" type="button" hidden>Copy</button>
+  <span class="u-visually-hidden" aria-live="polite"></span>
+</figure>

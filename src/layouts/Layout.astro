@@ -1,0 +1,55 @@
+---
+import '../styles/tw.css';
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from '../components/SiteFooter.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = "Install UCLI Tools with one command" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script is:inline>try{var t=localStorage.getItem('ucli-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t)}catch(e){}</script>
+
+    <link rel="icon" type="image/svg+xml" href="/ucli-kit/mark.svg" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F7F8FA" />
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#111316" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="UCLI Tools" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="/ucli-kit/fonts/source-serif-4-400.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="/ucli-kit/fonts/source-serif-4-600.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="/ucli-kit/fonts/ibm-plex-mono-400-latin.woff2" />
+    <link rel="stylesheet" href="/ucli-kit/tokens.css" />
+    <link rel="stylesheet" href="/ucli-kit/base.css" />
+    <link rel="stylesheet" href="/ucli-kit/prose.css" />
+    <script src="/ucli-kit/copy.js" defer></script>
+    <script src="/ucli-kit/theme.js" defer></script>
+  </head>
+  <body>
+    <a class="u-skip" href="#main">Skip to content</a>
+    <SiteHeader />
+    <main id="main">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>

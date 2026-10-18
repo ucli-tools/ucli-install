@@ -1,0 +1,77 @@
+/* ucli-kit prose.css (Astro sites only; the docs never load this file).
+   The kit's own reset and the element defaults. It replaces Tailwind's preflight, which each Astro
+   site turns off (corePlugins.preflight = false). Element selectors have specificity 0,0,1, so a
+   Tailwind utility or a u-* class overrides them in any load order. */
+
+*, ::before, ::after { box-sizing: border-box; border: 0 solid var(--u-rule); }
+
+[hidden] { display: none !important; }
+
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-behavior: auto; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+
+body {
+  margin: 0; background: var(--u-paper); color: var(--u-ink);
+  font-family: var(--u-font-serif); font-size: var(--u-step-0); line-height: var(--u-lh-0);
+  font-kerning: normal; text-rendering: optimizeLegibility;
+  overflow-wrap: break-word;
+}
+
+strong, b { font-weight: 600; }
+code, pre, kbd, samp { font-synthesis: none; }
+
+h1, h2, h3, h4 { margin: 0 0 0.5em; color: var(--u-ink); }
+h1, h2, h3 { font-family: var(--u-font-serif); font-weight: 600; letter-spacing: -0.01em; text-wrap: balance; }
+h1 { font-size: var(--u-step-4); line-height: var(--u-lh-4); }
+h2 { margin-top: 2.25em; font-size: var(--u-step-3); line-height: var(--u-lh-3); }
+h3 { margin-top: 1.75em; font-size: var(--u-step-2); line-height: var(--u-lh-2); }
+h4 { margin-top: 1.5em; font-family: var(--u-font-sans); font-weight: 600; font-size: var(--u-step-1); line-height: var(--u-lh-1); letter-spacing: 0; }
+:is(h1, h2, h3, h4):first-child { margin-top: 0; }
+
+p { margin: 0 0 1em; }
+p, ul, ol, blockquote, dl { max-width: var(--u-measure); }
+
+a {
+  color: var(--u-accent);
+  text-decoration-line: underline; text-decoration-thickness: 1px; text-underline-offset: 0.18em;
+  transition: text-decoration-color 120ms, text-decoration-thickness 120ms;
+}
+a:hover { color: var(--u-accent-hover); text-decoration-thickness: 2px; }
+
+:is(a, button, input, select, textarea, summary, [tabindex]):focus-visible { outline: 2px solid var(--u-accent); outline-offset: 2px; }
+
+ul, ol { margin: 0 0 1em; padding-left: 1.4em; }
+ul { list-style: disc; }
+ol { list-style: decimal; }
+li { margin: 0 0 0.35em; }
+li::marker { color: var(--u-ink-3); }
+li > ul, li > ol { margin-top: 0.35em; margin-bottom: 0; }
+
+blockquote { margin: 1.5em 0; padding-left: var(--u-space-5); border-left: 3px solid var(--u-rule); color: var(--u-ink-2); }
+hr { margin: var(--u-space-7) 0; border-top: 1px solid var(--u-rule); height: 0; }
+img, svg, video { display: block; max-width: 100%; height: auto; }
+figure { margin: 0; }
+
+code, kbd, samp { font-family: var(--u-font-mono); font-size: 0.9em; letter-spacing: 0; }
+:not(pre) > code, kbd {
+  padding: 0.1em 0.3em; background: var(--u-paper-2); color: var(--u-ink);
+  border-radius: var(--u-radius-input); overflow-wrap: anywhere;
+}
+pre {
+  margin: 1.5em 0; padding: var(--u-space-4);
+  background: var(--u-slab-bg); color: var(--u-slab-fg);
+  border: 1px solid var(--u-slab-border); border-radius: var(--u-radius-slab);
+  font-family: var(--u-font-mono); font-size: 0.875rem; line-height: 1.55;
+  white-space: pre-wrap; overflow-wrap: anywhere;
+}
+pre code { font-size: inherit; padding: 0; background: transparent; color: inherit; }
+
+table { width: 100%; margin: 1.5em 0; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: var(--u-step--1); line-height: var(--u-lh--1); }
+th { padding: 0.6em 1em 0.6em 0; text-align: left; vertical-align: bottom; font-family: var(--u-font-sans); font-weight: 600; color: var(--u-ink-2); border-bottom: 1px solid var(--u-ink); }
+td { padding: 0.6em 1em 0.6em 0; vertical-align: top; border-bottom: 1px solid var(--u-rule); }
+
+button, input, select, textarea { font: inherit; color: inherit; margin: 0; }
+button { cursor: pointer; }
